@@ -9,11 +9,11 @@ app = Flask(__name__, template_folder='templates', static_folder='static')
 app.secret_key = 'your-secret-key-123'  # Change this for production
 
 # Load models and scalers
-fuel_model = joblib.load(os.path.join('../models/fuel_efficiency_model.pkl'))
-failure_model = joblib.load(os.path.join('../models/failure_risk_model.pkl'))
+fuel_model = joblib.load(os.path.join('models/fuel_efficiency_model.pkl'))
+failure_model = joblib.load(os.path.join('models/failure_risk_model.pkl'))
 
-fuel_scaler = joblib.load(os.path.join('../scalers/fuel_scaler.pkl'))
-failure_scaler = joblib.load(os.path.join('../scalers/failure_scaler.pkl'))
+fuel_scaler = joblib.load(os.path.join('scalers/fuel_scaler.pkl'))
+failure_scaler = joblib.load(os.path.join('scalers/failure_scaler.pkl'))
 
 # Initialize session storage if not exists
 @app.before_request
