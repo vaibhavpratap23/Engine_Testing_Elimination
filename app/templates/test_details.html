@@ -25,15 +25,19 @@
       padding: 0;
     }
 
+    html, body {
+      height: 100%;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: 'Roboto', sans-serif;
       background: radial-gradient(ellipse at bottom, var(--darker-bg) 0%, var(--dark-bg) 100%);
       color: var(--text-light);
-      min-height: 100vh;
       line-height: 1.6;
     }
 
-    /* Header Styles - Matching analytics.html */
     header {
       width: 100%;
       padding: 1.2rem 2rem;
@@ -112,31 +116,43 @@
       gap: 0.5rem;
     }
 
-    .navbar a i {
-      font-size: 1.1rem;
-    }
-
-    .navbar a::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--primary);
-      transition: width 0.3s ease;
-    }
-
     .navbar a:hover {
       color: var(--text-light);
     }
 
-    .navbar a:hover::after {
-      width: 100%;
-    }
-
     .navbar a.active {
       color: var(--primary);
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .section {
+      margin-bottom: 3rem;
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 10px;
+      border-left: 4px solid var(--primary);
+    }
+
+    .section h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    .section p, .section ul {
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.8;
+    }
+
+    .section ul li {
+      margin-left: 1.5rem;
+      list-style: disc;
     }
 
     @keyframes rotate {
@@ -144,148 +160,17 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* Main Content Styles */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem;
-    }
-
-    .analytics-header {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-
-    .analytics-title {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 2.5rem;
-      color: var(--primary);
-      margin-bottom: 1rem;
-    }
-
-    /* Test Details Specific Styles */
-    .detail-card {
-      background: var(--card-bg);
-      border-radius: 12px;
-      padding: 2rem;
-      border: 1px solid rgba(0, 255, 247, 0.3);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-      margin-bottom: 2rem;
-    }
-
-    .detail-row {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 1.2rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid rgba(0, 255, 247, 0.1);
-    }
-
-    .detail-row:last-child {
-      border-bottom: none;
-    }
-
-    .detail-label {
-      font-family: 'Orbitron', sans-serif;
-      color: var(--primary);
-      font-weight: 500;
-    }
-
-    .detail-value {
-      font-family: 'Roboto', sans-serif;
-    }
-
-    .risk-badge {
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      font-family: 'Orbitron', sans-serif;
-      font-weight: 700;
-      font-size: 1rem;
-      display: inline-block;
-    }
-
-    .risk-high {
-      background: rgba(255, 77, 77, 0.2);
-      color: var(--secondary);
-    }
-
-    .risk-low {
-      background: rgba(68, 255, 102, 0.2);
-      color: var(--safe);
-    }
-
-    .parameters-title {
-      font-family: 'Orbitron', sans-serif;
-      color: var(--primary);
-      margin: 2rem 0 1.5rem 0;
-      font-size: 1.5rem;
-    }
-
-    .parameters-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .parameter {
-      background: rgba(0, 0, 0, 0.2);
-      border-radius: 8px;
-      padding: 1rem;
-      border-left: 3px solid var(--primary);
-    }
-
-    .param-label {
-      font-family: 'Orbitron', sans-serif;
-      color: var(--primary);
-      display: block;
-      margin-bottom: 0.5rem;
-      font-size: 0.9rem;
-    }
-
-    .param-value {
-      font-family: 'Roboto', sans-serif;
-      font-size: 1.1rem;
-    }
-
-    .back-link {
-      display: inline-flex;
-      align-items: center;
-      color: var(--primary);
-      text-decoration: none;
-      font-family: 'Orbitron', sans-serif;
-      margin-top: 2rem;
-      transition: all 0.3s ease;
-    }
-
-    .back-link:hover {
-      transform: translateX(-5px);
-    }
-
-    /* Responsive adjustments */
     @media (max-width: 768px) {
       header {
         flex-direction: column;
         gap: 1rem;
         padding: 1rem;
       }
-      
+
       .navbar {
         gap: 1.5rem;
         flex-wrap: wrap;
         justify-content: center;
-      }
-      
-      .analytics-title {
-        font-size: 2rem;
-      }
-      
-      .detail-row {
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-      
-      .parameters-grid {
-        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -297,56 +182,18 @@
       <div class="logo-text">ENGINE AI</div>
     </div>
     <nav class="navbar">
-      <a href="/"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-      <a href="/analytics"><i class="fas fa-chart-line"></i> Analytics</a>
-      <a href="/project-report" class="flex items-center">
-    <i class="fas fa-file-contract mr-2"></i>
-    Project Report
-</a>
-     <a href="/support"><i class="fas fa-envelope"></i> Support</a>
+      <a href="/">Dashboard</a>
+      <a href="/analytics">Analytics</a>
+      <a href="/project-report">Project Report</a>
+      <a href="/support">Support</a>
     </nav>
   </header>
-  
-  <div class="container">
-    <div class="analytics-header">
-      <h1 class="analytics-title">Test Details: {{ test.engine_name }}</h1>
-      <p>Test performed on {{ test.test_date }}</p>
+
+  <main>
+    <div class="section">
+      <h2>Test Details</h2>
+      <p>Engine test data and parameter breakdown displayed here for better diagnostics.</p>
     </div>
-    
-    <div class="detail-card">
-      <div class="detail-row">
-        <span class="detail-label">Engine Name:</span>
-        <span class="detail-value">{{ test.engine_name }}</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-label">Test Date:</span>
-        <span class="detail-value">{{ test.test_date }}</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-label">Fuel Efficiency:</span>
-        <span class="detail-value">{{ test.fuel_efficiency }} mpg</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-label">Risk Status:</span>
-        <span class="risk-badge {% if test.risk_status == 'High' %}risk-high{% else %}risk-low{% endif %}">
-          {% if test.risk_status == 'High' %}⚠️ Critical{% else %}✓ Optimal{% endif %}
-        </span>
-      </div>
-      
-      <h3 class="parameters-title">Engine Parameters</h3>
-      <div class="parameters-grid">
-        {% for key, value in test.details.items() %}
-        <div class="parameter">
-          <span class="param-label">{{ key|replace('_', ' ')|title }}:</span>
-          <span class="param-value">{{ value }}</span>
-        </div>
-        {% endfor %}
-      </div>
-    </div>
-    
-    <a href="/analytics" class="back-link">
-      <i class="fas fa-arrow-left" style="margin-right: 0.5rem;"></i> Back to Analytics
-    </a>
-  </div>
+  </main>
 </body>
 </html>

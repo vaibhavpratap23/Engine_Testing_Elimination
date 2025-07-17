@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <!-- Improved viewport meta tag -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vaibhav Pratap | Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -26,30 +25,19 @@
       padding: 0;
     }
 
-    /* Critical scrolling fixes */
-    html {
+    html, body {
+      scroll-behavior: smooth;
       height: 100%;
-      overflow-x: hidden;
-      -webkit-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;
     }
 
     body {
       font-family: 'Roboto', sans-serif;
       background: radial-gradient(ellipse at bottom, var(--darker-bg) 0%, var(--dark-bg) 100%);
       color: var(--text-light);
-      min-height: 100vh;
       line-height: 1.6;
-      position: relative;
-      overflow-x: hidden;
       overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      touch-action: pan-y;
-      display: flex;
-      flex-direction: column;
     }
 
-    /* Particles Background - fixed but non-interfering */
     .particles {
       position: fixed;
       top: 0;
@@ -57,7 +45,7 @@
       width: 100%;
       height: 100%;
       z-index: -1;
-      pointer-events: none;
+      overflow: hidden;
     }
 
     .particle {
@@ -68,203 +56,69 @@
       filter: drop-shadow(0 0 5px rgba(0, 255, 247, 0.8));
     }
 
-    /* Header Styles */
-    header {
-      width: 100%;
-      padding: 1.2rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(15, 12, 41, 0.8);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(0, 255, 247, 0.2);
-      z-index: 100;
-      position: relative;
+    @keyframes float {
+      0% { transform: translateY(0) translateX(0); opacity: 0; }
+      10% { opacity: 0.8; }
+      90% { opacity: 0.8; }
+      100% { transform: translateY(-100vh) translateX(20px); opacity: 0; }
     }
-
-    /* [Keep all your existing logo and navbar styles] */
-
-    /* Main Content - scrollable area */
-    main {
-      flex: 1;
-      padding: 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-      width: 100%;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    /* Profile Card - ensure it doesn't interfere with scrolling */
-    .profile-card {
-      background: var(--card-bg);
-      border-radius: 12px;
-      padding: 2rem;
-      margin-bottom: 2rem;
-      border-left: 4px solid var(--primary);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-      position: relative;
-    }
-
-    /* Profile Image Section - mobile responsive */
-    .profile-container {
-      display: flex;
-      gap: 2rem;
-      align-items: flex-start;
-    }
-    
-    .profile-image-container {
-      flex: 0 0 220px;
-      position: relative;
-    }
-    
-    .profile-image {
-      width: 100%;
-      border-radius: 12px;
-      border: 3px solid var(--primary);
-      box-shadow: 0 0 25px rgba(0, 255, 247, 0.3);
-      aspect-ratio: 1/1;
-      object-fit: cover;
-      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-    }
-    
-    .profile-image-frame {
-      position: absolute;
-      top: -15px;
-      left: -15px;
-      right: -15px;
-      bottom: -15px;
-      border: 2px solid rgba(0, 255, 247, 0.5);
-      border-radius: 16px;
-      z-index: -1;
-      animation: pulse 3s infinite alternate;
-      pointer-events: none;
-    }
-
-    /* [Keep all your existing content styles] */
-
-    /* Mobile-specific fixes */
-    @media (max-width: 768px) {
-      html {
-        overflow: initial;
-      }
-      
-      body {
-        overflow: initial;
-        min-height: 100vh;
-        height: auto;
-      }
-      
-      main {
-        padding: 1.5rem;
-        overflow: initial;
-      }
-      
-      .profile-container {
-        flex-direction: column;
-      }
-      
-      .profile-image-container {
-        margin: 0 auto 1.5rem;
-        flex: 0 0 auto;
-        width: 70%;
-        max-width: 220px;
-      }
-      
-      .contact-info {
-        grid-template-columns: 1fr;
-      }
-      
-      /* Ensure touch targets are large enough */
-      .navbar a {
-        padding: 0.8rem 0;
-      }
-      
-      .contact-item, .download-btn {
-        min-height: 44px; /* Apple's recommended minimum touch target */
-      }
-    }
-
-    /* Animation fixes for mobile */
-    @media (prefers-reduced-motion: reduce) {
-      .particle, .profile-image-frame, .logo-icon::before {
-        animation: none !important;
-      }
-    }
-
-    /* [Keep all your other existing styles] */
   </style>
 </head>
 <body>
   <!-- Animated Background Particles -->
   <div class="particles" id="particles"></div>
-  
+
+  <!-- Main content for the portfolio page -->
   <header>
-    <div class="logo">
-      <div class="logo-icon"></div>
-      <div class="logo-text">VAIBHAV PRATAP</div>
-    </div>
-    <nav class="navbar">
-      <a href="#" class="active"><i class="fas fa-user"></i> About</a>
-      <a href="#experience"><i class="fas fa-briefcase"></i> Experience</a>
-      <a href="#projects"><i class="fas fa-code"></i> Projects</a>
-      <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
-    </nav>
+    <h1 style="padding: 2rem; text-align: center; font-family: 'Orbitron', sans-serif; color: var(--primary);">Vaibhav Pratap Portfolio</h1>
   </header>
-  
-  <main>
-    <!-- [Keep all your existing content] -->
+
+  <main style="max-width: 800px; margin: 0 auto; padding: 1rem;">
+    <section>
+      <h2 style="color: var(--primary-dark);">About Me</h2>
+      <p>I'm a Computer Science Engineer passionate about full stack development, AI/ML, and solving real-world problems with technology.</p>
+    </section>
+
+    <section>
+      <h2 style="color: var(--primary-dark); margin-top: 2rem;">Projects</h2>
+      <ul>
+        <li>AI-Based Inventory Management System</li>
+        <li>Cultivate Culture - Platform for Skill Development</li>
+        <li>Personal Portfolio Website</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 style="color: var(--primary-dark); margin-top: 2rem;">Contact</h2>
+      <p>Email: <a href="mailto:pratapvaibhav23@gmail.com" style="color: var(--text-light); text-decoration: underline;">pratapvaibhav23@gmail.com</a></p>
+      <p>LinkedIn: <a href="https://linkedin.com/in/youtprofile" target="_blank" style="color: var(--text-light); text-decoration: underline;">linkedin.com/in/youtprofile</a></p>
+      <p>GitHub: <a href="https://github.com/yourusername" target="_blank" style="color: var(--text-light); text-decoration: underline;">github.com/yourusername</a></p>
+    </section>
   </main>
 
   <script>
-    // Enhanced mobile touch handling
+    // Create animated particles
     document.addEventListener('DOMContentLoaded', function() {
-      // Create particles
       const particlesContainer = document.getElementById('particles');
-      const particleCount = window.innerWidth < 768 ? 30 : 50;
-      
+      const particleCount = 50;
+
       for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
         particle.classList.add('particle');
-        
+
         const size = Math.random() * 3 + 2;
         particle.style.width = `${size}px`;
         particle.style.height = `${size}px`;
+
         particle.style.left = `${Math.random() * 100}%`;
         particle.style.top = `${Math.random() * 100}%`;
-        
+
         const duration = Math.random() * 15 + 10;
         const delay = Math.random() * 5;
         particle.style.animation = `float ${duration}s linear ${delay}s infinite`;
-        
+
         particlesContainer.appendChild(particle);
       }
-
-      // Mobile touch scroll improvement
-      let touchStartY = 0;
-      const mainElement = document.querySelector('main');
-      
-      document.addEventListener('touchstart', function(e) {
-        touchStartY = e.touches[0].clientY;
-      }, {passive: true});
-
-      document.addEventListener('touchmove', function(e) {
-        const touchY = e.touches[0].clientY;
-        const scrollPosition = mainElement.scrollTop;
-        const scrollHeight = mainElement.scrollHeight;
-        const clientHeight = mainElement.clientHeight;
-        
-        // Prevent rubber-band scrolling when at top/bottom
-        if ((scrollPosition <= 0 && touchY > touchStartY) || 
-            (scrollPosition + clientHeight >= scrollHeight && touchY < touchStartY)) {
-          e.preventDefault();
-        }
-      }, {passive: false});
-      
-      // Reset scroll position on orientation change
-      window.addEventListener('orientationchange', function() {
-        mainElement.scrollTop = 0;
-      });
     });
   </script>
 </body>
