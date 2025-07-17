@@ -685,6 +685,25 @@ main {
       }
     `;
     document.head.appendChild(style);
+
+    document.addEventListener('DOMContentLoaded', function() {
+  let touchStartY = 0;
+  
+  document.addEventListener('touchstart', function(e) {
+    touchStartY = e.touches[0].clientY;
+  }, {passive: true});
+
+  document.addEventListener('touchmove', function(e) {
+    const touchY = e.touches[0].clientY;
+    const scrollingElement = document.scrollingElement || document.documentElement;
+    
+    // Check if we're at the top or bottom
+    if ((scrollingElement.scrollTop <= 0 && touchY > touchStartY) ||
+        (scrollingElement.scrollTop + scrollingElement.clientHeight >= scrollingElement.scrollHeight && touchY < touchStartY)) {
+      e.preventDefault();
+    }
+  }, {passive: false});
+});
   </script>
     
    

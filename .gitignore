@@ -9,7 +9,7 @@ __pycache__/
 .vscode/
 
 # Ignore model files and backups (optional)
-*.pkl
+#*.pkl
 *.h5
 *.joblib
 
