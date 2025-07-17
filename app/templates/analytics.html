@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Engine Analytics | AI-Powered Predictive Diagnostics</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #00fff7;
+      --primary-dark: #00c9ff;
+      --secondary: #ff4d4d;
+      --safe: #44ff66;
+      --dark-bg: #0f0c29;
+      --darker-bg: #080616;
+      --card-bg: rgba(15, 12, 41, 0.7);
+      --text-light: #f0f0f0;
+      --text-dim: #cccccc;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: radial-gradient(ellipse at bottom, var(--darker-bg) 0%, var(--dark-bg) 100%);
+      color: var(--text-light);
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Header/Navigation Styles */
+    header {
+      width: 100%;
+      padding: 1.2rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(15, 12, 41, 0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0, 255, 247, 0.2);
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .logo-icon::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: conic-gradient(transparent 0deg, var(--primary) 180deg, transparent 180deg);
+      animation: rotate 4s linear infinite;
+    }
+
+    .logo-icon::after {
+      content: '';
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      background: var(--dark-bg);
+      border-radius: 50%;
+    }
+
+    .logo-text {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 1.4rem;
+      background: linear-gradient(to right, var(--primary), var(--primary-dark));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 1px;
+    }
+
+    .navbar {
+      display: flex;
+      gap: 2.5rem;
+    }
+
+    .navbar a {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 500;
+      font-size: 1.05rem;
+      letter-spacing: 0.5px;
+      position: relative;
+      transition: all 0.3s ease;
+      padding: 0.5rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .navbar a i {
+      font-size: 1.1rem;
+    }
+
+    .navbar a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+
+    .navbar a:hover {
+      color: var(--text-light);
+    }
+
+    .navbar a:hover::after {
+      width: 100%;
+    }
+
+    .navbar a.active {
+      color: var(--primary);
+    }
+
+    /* Main Content Styles */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .analytics-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .analytics-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    .results-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 2rem;
+      background: var(--card-bg);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .results-table th {
+      background: rgba(0, 255, 247, 0.2);
+      color: var(--primary);
+      font-family: 'Orbitron', sans-serif;
+      padding: 1rem;
+      text-align: left;
+    }
+
+    .results-table td {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(0, 255, 247, 0.1);
+      font-family: 'Roboto', sans-serif;
+    }
+
+    .results-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .results-table tr:hover {
+      background: rgba(0, 255, 247, 0.05);
+    }
+
+    .risk-badge {
+      padding: 0.3rem 0.6rem;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 0.8rem;
+      display: inline-block;
+    }
+
+    .risk-high {
+      background: rgba(255, 77, 77, 0.2);
+      color: var(--secondary);
+    }
+
+    .risk-low {
+      background: rgba(68, 255, 102, 0.2);
+      color: var(--safe);
+    }
+
+    
+  .chart-container {
+    margin-top: 2rem; /* Reduced from 3rem */
+    background: var(--card-bg);
+    padding: 1rem; /* Reduced from 2rem */
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    width: 50%; /* New - limits width to 50% */
+    margin-left: auto;
+    margin-right: auto;
+  }
+     #trendChart {
+    width: 100% !important;
+    height: 250px !important; /* Reduced height */
+  }
+
+    .details-link {
+      color: var(--primary);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .details-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Animations */
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+      }
+       .chart-container {
+      width: 90%; /* More width on mobile */
+      padding: 0.8rem;
+    }
+    
+    #trendChart {
+      height: 200px !important;
+    }
+      
+      .navbar {
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .logo-text {
+        font-size: 1.2rem;
+      }
+
+      .results-table {
+        display: block;
+        overflow-x: auto;
+      }
+
+      .analytics-title {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <div class="logo-icon"></div>
+      <div class="logo-text">ENGINE AI</div>
+    </div>
+    <nav class="navbar">
+      <a href="/"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+      <a href="/analytics" class="active"><i class="fas fa-chart-line"></i> Analytics</a>
+      <a href="/project-report" class="flex items-center">
+    <i class="fas fa-file-contract mr-2"></i>
+    Project Report
+</a>
+      <a href="/support"><i class="fas fa-envelope"></i> Support</a>
+    </nav>
+  </header>
+  
+  <div class="container">
+    <div class="analytics-header">
+      <h1 class="analytics-title">Engine Performance Analytics</h1>
+      <p>Historical data and trends for all engine tests</p>
+    </div>
+    
+    <div class="chart-container">
+      <canvas id="trendChart"></canvas>
+    </div>
+    
+    <table class="results-table">
+      <thead>
+        <tr>
+          <th>Engine Name</th>
+          <th>Test Date</th>
+          <th>Fuel Efficiency</th>
+          <th>Risk Status</th>
+          <th>Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for test in test_history %}
+        <tr>
+          <td>{{ test.engine_name }}</td>
+          <td>{{ test.test_date }}</td>
+          <td>{{ test.fuel_efficiency }} mpg</td>
+          <td>
+            <span class="risk-badge {% if test.risk_status == 'High' %}risk-high{% else %}risk-low{% endif %}">
+              {% if test.risk_status == 'High' %}⚠️ Critical{% else %}✓ Optimal{% endif %}
+            </span>
+          </td>
+          <td>
+            <a href="/test-details/{{ test.id }}" class="details-link">View</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // Initialize trend chart
+    const ctx = document.getElementById('trendChart').getContext('2d');
+    const trendChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: {{ test_dates|tojson }},
+        datasets: [{
+          label: 'Fuel Efficiency (mpg)',
+          data: {{ efficiency_data|tojson }},
+          borderColor: 'rgba(0, 255, 247, 1)',
+          backgroundColor: 'rgba(0, 255, 247, 0.1)',
+          tension: 0.3,
+          fill: true
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+            labels: {
+              font: {
+                family: 'Orbitron'
+              },
+              color: 'rgba(255, 255, 255, 0.7)'
+            }
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: false,
+            grid: {
+              color: 'rgba(255, 255, 255, 0.1)'
+            },
+            ticks: {
+              color: 'rgba(255, 255, 255, 0.7)'
+            }
+          },
+          x: {
+            grid: {
+              color: 'rgba(255, 255, 255, 0.1)'
+            },
+            ticks: {
+              color: 'rgba(255, 255, 255, 0.7)'
+            }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

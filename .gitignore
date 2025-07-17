@@ -1,0 +1,18 @@
+# Ignore Python cache and environment
+__pycache__/
+*.py[cod]
+
+# Ignore virtual environment
+.venv/
+
+# VSCode settings (optional)
+.vscode/
+
+# Ignore model files and backups (optional)
+*.pkl
+*.h5
+*.joblib
+
+# Mac and system files (optional)
+.DS_Store
+Thumbs.db
