@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
   <title>Project Report | Engine AI</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
@@ -24,11 +24,16 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      -webkit-tap-highlight-color: transparent;
     }
 
-    html {
+    html, body {
       scroll-behavior: smooth;
       height: 100%;
+      overflow-x: hidden !important;
+      width: 100%;
+      position: relative;
+      overscroll-behavior: none;
     }
 
     body {
@@ -39,7 +44,15 @@
       line-height: 1.6;
       display: flex;
       flex-direction: column;
-      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      touch-action: manipulation;
+    }
+
+    /* Prevent body scroll when menu is active */
+    body.menu-open {
+      overflow: hidden !important;
+      position: fixed !important;
+      width: 100% !important;
     }
 
     /* Particles Background */
@@ -51,6 +64,7 @@
       height: 100%;
       z-index: -1;
       overflow: hidden;
+      pointer-events: none;
     }
 
     .particle {
@@ -121,15 +135,14 @@
       letter-spacing: 1px;
     }
 
-    /* FIXED NAVBAR - Transform-based approach */
+    /* FIXED NAVBAR - Properly hidden off-screen */
     .navbar {
       position: fixed;
       top: 0;
-      right: 0;
+      right: -100%;
       width: 70%;
       height: 100vh;
-      transform: translateX(100%);
-      transition: transform 0.3s ease;
+      transition: right 0.3s ease;
       background: var(--darker-bg);
       flex-direction: column;
       justify-content: center;
@@ -138,10 +151,12 @@
       border-left: 1px solid rgba(0, 255, 247, 0.2);
       z-index: 100;
       display: flex;
+      touch-action: none;
+      will-change: right;
     }
 
     .navbar.active {
-      transform: translateX(0);
+      right: 0;
     }
 
     .navbar a {
@@ -154,6 +169,9 @@
       position: relative;
       transition: all 0.3s ease;
       padding: 0.5rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
     .navbar a:hover {
@@ -458,22 +476,25 @@
       100% { transform: translateY(-120vh) translateX(40px); opacity: 0; }
     }
 
-    /* Desktop layout - override mobile styles */
+    /* Desktop layout - override mobile styles with !important */
     @media (min-width: 769px) {
       .navbar {
-        position: static;
-        transform: none;
-        width: auto;
-        height: auto;
-        flex-direction: row;
-        gap: 2rem;
-        background: transparent;
-        border: none;
-        padding: 0;
+        position: static !important;
+        right: auto !important;
+        transform: none !important;
+        width: auto !important;
+        height: auto !important;
+        flex-direction: row !important;
+        gap: 2rem !important;
+        background: transparent !important;
+        border: none !important;
+        padding: 0 !important;
+        justify-content: flex-end !important;
+        touch-action: auto !important;
       }
 
       .hamburger {
-        display: none;
+        display: none !important;
       }
     }
 
@@ -540,10 +561,10 @@
     </div>
     
     <nav class="navbar" id="navbar">
-      <a href="index.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-      <a href="analytics"><i class="fas fa-chart-line"></i> Analytics</a>
-      <a href="project-report" class="active"><i class="fas fa-file-contract"></i> Project Report</a>
-      <a href="support"><i class="fas fa-envelope"></i> Profile</a>
+      <a href="/"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+      <a href="/analytics"><i class="fas fa-chart-line"></i> Analytics</a>
+      <a href="/project-report" class="active"><i class="fas fa-file-contract"></i> Project Report</a>
+      <a href="/profile"><i class="fas fa-user-circle"></i> Profile</a>
     </nav>
   </header>
   
@@ -622,32 +643,30 @@
           <h3>Machine Learning Models</h3>
           <p>Two specialized models were developed and trained:</p>
           
-          <div class="tech-table">
-            <table>
-              <thead>
-                <tr>
-                  <th>Model Type</th>
-                  <th>Algorithm</th>
-                  <th>Purpose</th>
-                  <th>Accuracy</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Fuel Efficiency Predictor</td>
-                  <td>Random Forest Regression</td>
-                  <td>Predict fuel consumption (km/l)</td>
-                  <td>94.2%</td>
-                </tr>
-                <tr>
-                  <td>Failure Risk Classifier</td>
-                  <td>Support Vector Machine</td>
-                  <td>Predict engine failure probability</td>
-                  <td>91.8%</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <table class="tech-table">
+            <thead>
+              <tr>
+                <th>Model Type</th>
+                <th>Algorithm</th>
+                <th>Purpose</th>
+                <th>Accuracy</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Fuel Efficiency Predictor</td>
+                <td>Random Forest Regression</td>
+                <td>Predict fuel consumption (km/l)</td>
+                <td>94.2%</td>
+              </tr>
+              <tr>
+                <td>Failure Risk Classifier</td>
+                <td>Support Vector Machine</td>
+                <td>Predict engine failure probability</td>
+                <td>91.8%</td>
+              </tr>
+            </tbody>
+          </table>
 
           <h3>Input Parameters</h3>
           <p>The system monitors eight critical engine parameters:</p>
@@ -716,49 +735,47 @@
           <h2 class="section-title">Technologies Used</h2>
         </div>
         <div class="section-content">
-          <div class="tech-table">
-            <table>
-              <thead>
-                <tr>
-                  <th>Category</th>
-                  <th>Technology</th>
-                  <th>Purpose</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Backend</td>
-                  <td>Python Flask</td>
-                  <td>Web framework and API development</td>
-                </tr>
-                <tr>
-                  <td>Machine Learning</td>
-                  <td>Scikit-learn</td>
-                  <td>Model training and prediction</td>
-                </tr>
-                <tr>
-                  <td>Data Processing</td>
-                  <td>NumPy, Pandas</td>
-                  <td>Data manipulation and analysis</td>
-                </tr>
-                <tr>
-                  <td>Frontend</td>
-                  <td>HTML5, CSS3, JavaScript</td>
-                  <td>User interface development</td>
-                </tr>
-                <tr>
-                  <td>Styling</td>
-                  <td>CSS Grid, Flexbox</td>
-                  <td>Responsive design implementation</td>
-                </tr>
-                <tr>
-                  <td>Icons</td>
-                  <td>Font Awesome</td>
-                  <td>UI iconography</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <table class="tech-table">
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Technology</th>
+                <th>Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Backend</td>
+                <td>Python Flask</td>
+                <td>Web framework and API development</td>
+              </tr>
+              <tr>
+                <td>Machine Learning</td>
+                <td>Scikit-learn</td>
+                <td>Model training and prediction</td>
+              </tr>
+              <tr>
+                <td>Data Processing</td>
+                <td>NumPy, Pandas</td>
+                <td>Data manipulation and analysis</td>
+              </tr>
+              <tr>
+                <td>Frontend</td>
+                <td>HTML5, CSS3, JavaScript</td>
+                <td>User interface development</td>
+              </tr>
+              <tr>
+                <td>Styling</td>
+                <td>CSS Grid, Flexbox</td>
+                <td>Responsive design implementation</td>
+              </tr>
+              <tr>
+                <td>Icons</td>
+                <td>Font Awesome</td>
+                <td>UI iconography</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </section>
 
@@ -813,11 +830,9 @@
   </main>
 
   <script>
-    // Create animated particles
     document.addEventListener('DOMContentLoaded', function() {
+      // Create animated particles
       const particlesContainer = document.getElementById('particles');
-      
-      // Particle count and configuration
       const particleCount = 80;
       
       for (let i = 0; i < particleCount; i++) {
@@ -847,26 +862,63 @@
         particlesContainer.appendChild(particle);
       }
 
-      // FIXED: Hamburger menu functionality
+      // Enhanced hamburger menu functionality
       const hamburger = document.getElementById('hamburger');
       const navbar = document.getElementById('navbar');
+      const body = document.body;
       
       hamburger.addEventListener('click', function() {
         this.classList.toggle('open');
         navbar.classList.toggle('active');
         
-        // Toggle body scroll when menu is open
-        document.documentElement.style.overflow = navbar.classList.contains('active') ? 'hidden' : '';
+        // Prevent body scrolling when menu is open
+        if (navbar.classList.contains('active')) {
+          body.classList.add('menu-open');
+        } else {
+          body.classList.remove('menu-open');
+        }
       });
       
-      // Close menu when clicking on a link (using event delegation)
+      // Close menu when clicking on links
       navbar.addEventListener('click', function(e) {
         if (e.target.tagName.toLowerCase() === 'a' || e.target.closest('a')) {
           hamburger.classList.remove('open');
           navbar.classList.remove('active');
-          document.documentElement.style.overflow = '';
+          body.classList.remove('menu-open');
         }
       });
+
+      // Close menu when clicking outside
+      document.addEventListener('click', function(e) {
+        if (!navbar.contains(e.target) && !hamburger.contains(e.target)) {
+          if (navbar.classList.contains('active')) {
+            hamburger.classList.remove('open');
+            navbar.classList.remove('active');
+            body.classList.remove('menu-open');
+          }
+        }
+      });
+
+      // Prevent touch scrolling that reveals the menu
+      let startX = 0;
+      let startY = 0;
+
+      document.addEventListener('touchstart', function(e) {
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+      }, { passive: true });
+
+      document.addEventListener('touchmove', function(e) {
+        if (!navbar.classList.contains('active')) {
+          const deltaX = e.touches[0].clientX - startX;
+          const deltaY = Math.abs(e.touches[0].clientY - startY);
+          
+          // If swiping horizontally more than vertically, prevent it
+          if (Math.abs(deltaX) > deltaY && deltaX > 50) {
+            e.preventDefault();
+          }
+        }
+      }, { passive: false });
 
       // Add smooth scrolling for any internal links
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -881,28 +933,6 @@
           }
         });
       });
-    });
-
-    // Improved touch scrolling
-    document.addEventListener('DOMContentLoaded', function() {
-      let touchStartY = 0;
-      
-      document.addEventListener('touchstart', function(e) {
-        touchStartY = e.touches[0].clientY;
-      }, {passive: true});
-
-      document.addEventListener('touchmove', function(e) {
-        const touchY = e.touches[0].clientY;
-        const touchDiff = touchStartY - touchY;
-        const scrollingElement = document.scrollingElement || document.documentElement;
-        
-        // Only prevent default if we're at the top and scrolling down
-        // or at the bottom and scrolling up
-        if ((scrollingElement.scrollTop <= 0 && touchDiff < 0) ||
-            (scrollingElement.scrollTop + scrollingElement.clientHeight >= scrollingElement.scrollHeight && touchDiff > 0)) {
-          e.preventDefault();
-        }
-      }, {passive: false});
     });
   </script>
 </body>
