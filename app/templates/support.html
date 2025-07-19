@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
   <title>Vaibhav Pratap | Profile</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
@@ -24,11 +24,16 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      -webkit-tap-highlight-color: transparent;
     }
 
-    html {
+    html, body {
       scroll-behavior: smooth;
       height: 100%;
+      overflow-x: hidden !important;
+      width: 100%;
+      position: relative;
+      overscroll-behavior: none;
     }
 
     body {
@@ -39,7 +44,15 @@
       line-height: 1.6;
       display: flex;
       flex-direction: column;
-      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      touch-action: manipulation;
+    }
+
+    /* Prevent body scroll when menu is active */
+    body.menu-open {
+      overflow: hidden !important;
+      position: fixed !important;
+      width: 100% !important;
     }
 
     /* Particles Background */
@@ -51,6 +64,7 @@
       height: 100%;
       z-index: -1;
       overflow: hidden;
+      pointer-events: none;
     }
 
     .particle {
@@ -122,15 +136,14 @@
       letter-spacing: 1px;
     }
 
-    /* FIXED NAVBAR - Transform-based approach */
+    /* FIXED NAVBAR - Properly hidden off-screen */
     .navbar {
       position: fixed;
       top: 0;
-      right: 0;
+      right: -100%;
       width: 70%;
       height: 100vh;
-      transform: translateX(100%);
-      transition: transform 0.3s ease;
+      transition: right 0.3s ease;
       background: var(--darker-bg);
       flex-direction: column;
       justify-content: center;
@@ -139,10 +152,12 @@
       border-left: 1px solid rgba(0, 255, 247, 0.2);
       z-index: 100;
       display: flex;
+      touch-action: none;
+      will-change: right;
     }
 
     .navbar.active {
-      transform: translateX(0);
+      right: 0;
     }
 
     .navbar a {
@@ -180,7 +195,7 @@
     }
     
     .navbar a.active {
-        color: var(--primary);
+      color: var(--primary);
     }
 
     /* Hamburger menu */
@@ -225,20 +240,20 @@
     }
 
     .profile-container {
-        width: 100%;
-        max-width: 1200px;
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
     }
 
     .profile-card {
-        background: var(--card-bg);
-        border-radius: 12px;
-        padding: 2rem;
-        border: 1px solid rgba(0, 255, 247, 0.3);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 2rem;
+      border: 1px solid rgba(0, 255, 247, 0.3);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     
     .profile-card:hover {
@@ -247,129 +262,129 @@
     }
 
     .about-container {
-        display: flex;
-        gap: 2rem;
-        align-items: center;
+      display: flex;
+      gap: 2rem;
+      align-items: center;
     }
     
     .profile-image-container {
-        flex-shrink: 0;
-        width: 200px;
-        height: 200px;
-        position: relative;
+      flex-shrink: 0;
+      width: 200px;
+      height: 200px;
+      position: relative;
     }
 
     .profile-image {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 4px solid var(--primary);
-        box-shadow: 0 0 25px rgba(0, 255, 247, 0.4);
-        animation: pulse 3s infinite alternate;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--primary);
+      box-shadow: 0 0 25px rgba(0, 255, 247, 0.4);
+      animation: pulse 3s infinite alternate;
     }
 
     .profile-content {
-        flex-grow: 1;
+      flex-grow: 1;
     }
 
     .profile-content h1 {
-        font-family: 'Orbitron', sans-serif;
-        font-size: 2.2rem;
-        color: var(--primary);
-        margin-bottom: 0.5rem;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.2rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
     }
     
     .profile-content .subtitle {
-        font-family: 'Roboto', sans-serif;
-        font-size: 1.1rem;
-        color: var(--text-dim);
-        margin-bottom: 1rem;
+      font-family: 'Roboto', sans-serif;
+      font-size: 1.1rem;
+      color: var(--text-dim);
+      margin-bottom: 1rem;
     }
 
     .contact-info {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1.5rem;
-        margin-top: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
     }
 
     .contact-item {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        color: var(--text-light);
-        text-decoration: none;
-        transition: color 0.3s, transform 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-light);
+      text-decoration: none;
+      transition: color 0.3s, transform 0.3s;
     }
 
     .contact-item:hover {
-        color: var(--primary);
-        transform: translateY(-2px);
+      color: var(--primary);
+      transform: translateY(-2px);
     }
 
     .contact-item i {
-        color: var(--primary);
-        font-size: 1.2rem;
+      color: var(--primary);
+      font-size: 1.2rem;
     }
     
     .section-title {
-        font-family: 'Orbitron', sans-serif;
-        font-size: 1.8rem;
-        color: var(--primary);
-        margin-bottom: 1.5rem;
-        padding-bottom: 0.5rem;
-        border-bottom: 2px solid rgba(0, 255, 247, 0.3);
-        display: inline-block;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid rgba(0, 255, 247, 0.3);
+      display: inline-block;
     }
     
     .tech-used {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-        margin: 0.5rem 0 1rem 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 0.5rem 0 1rem 0;
     }
 
     .tech-tag {
-        background: rgba(0, 201, 255, 0.1);
-        color: var(--primary);
-        padding: 0.25rem 0.75rem;
-        border-radius: 20px;
-        font-size: 0.85rem;
-        border: 1px solid var(--primary);
+      background: rgba(0, 201, 255, 0.1);
+      color: var(--primary);
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      border: 1px solid var(--primary);
     }
     
     .item-list {
-        list-style-type: none;
-        padding-left: 0;
+      list-style-type: none;
+      padding-left: 0;
     }
     
     .item-list li {
-        position: relative;
-        padding-left: 1.5rem;
-        margin-bottom: 0.5rem;
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 0.5rem;
     }
     
     .item-list li::before {
-        content: '▹';
-        position: absolute;
-        left: 0;
-        color: var(--primary);
+      content: '▹';
+      position: absolute;
+      left: 0;
+      color: var(--primary);
     }
 
     .skills-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
     }
 
     .skill-category h3 {
-        font-family: 'Orbitron', sans-serif;
-        color: var(--primary);
-        font-size: 1.2rem;
-        margin-bottom: 1rem;
-        border-bottom: 1px solid rgba(0, 255, 247, 0.2);
-        padding-bottom: 0.5rem;
+      font-family: 'Orbitron', sans-serif;
+      color: var(--primary);
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid rgba(0, 255, 247, 0.2);
+      padding-bottom: 0.5rem;
     }
 
     /* Animations */
@@ -378,30 +393,33 @@
     @keyframes float { 0% { transform: translateY(0) translateX(0); opacity: 0; } 10% { opacity: 0.8; } 90% { opacity: 0.8; } 100% { transform: translateY(-100vh) translateX(20px); opacity: 0; } }
     @keyframes floatVariation { 0% { transform: translateY(0) translateX(0); opacity: 0; } 10% { opacity: 0.8; } 90% { opacity: 0.8; } 100% { transform: translateY(-120vh) translateX(40px); opacity: 0; } }
 
-    /* Desktop layout - override mobile styles */
+    /* Desktop layout - override mobile styles with !important */
     @media (min-width: 769px) {
       .navbar {
-        position: static;
-        transform: none;
-        width: auto;
-        height: auto;
-        flex-direction: row;
-        gap: 2rem;
-        background: transparent;
-        border: none;
-        padding: 0;
+        position: static !important;
+        right: auto !important;
+        transform: none !important;
+        width: auto !important;
+        height: auto !important;
+        flex-direction: row !important;
+        gap: 2rem !important;
+        background: transparent !important;
+        border: none !important;
+        padding: 0 !important;
+        justify-content: flex-end !important;
+        touch-action: auto !important;
       }
-      .hamburger { display: none; }
+      .hamburger { display: none !important; }
     }
 
     /* Responsive adjustments */
     @media (max-width: 768px) {
-        header { padding: 1rem; }
-        main { padding: 1.5rem; }
-        .about-container { flex-direction: column; text-align: center; }
-        .profile-image-container { margin: 0 auto 1.5rem; }
-        .contact-info { justify-content: center; }
-        .profile-content h1 { font-size: 1.8rem; }
+      header { padding: 1rem; }
+      main { padding: 1.5rem; }
+      .about-container { flex-direction: column; text-align: center; }
+      .profile-image-container { margin: 0 auto 1.5rem; }
+      .contact-info { justify-content: center; }
+      .profile-content h1 { font-size: 1.8rem; }
     }
   </style>
 </head>
@@ -423,10 +441,10 @@
     </div>
     
     <nav class="navbar" id="navbar">
-      <a href="index.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-      <a href="analytics.html"><i class="fas fa-chart-line"></i> Analytics</a>
-      <a href="project_report.html"><i class="fas fa-file-contract"></i> Project Report</a>
-      <a href="support.html" class="active"><i class="fas fa-user-circle"></i> Profile</a>
+      <a href="/"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+      <a href="/analytics"><i class="fas fa-chart-line"></i> Analytics</a>
+      <a href="/project-report"><i class="fas fa-file-contract"></i> Project Report</a>
+      <a href="/profile" class="active"><i class="fas fa-user-circle"></i> Profile</a>
     </nav>
   </header>
   
@@ -436,7 +454,7 @@
       <section id="about" class="profile-card animate__animated animate__fadeIn">
         <div class="about-container">
           <div class="profile-image-container">
-            <img src="/app/static/images/profile.JPG" alt="Vaibhav Pratap" class="profile-image">
+            <img src="/static/images/profile.JPG" alt="Vaibhav Pratap" class="profile-image">
           </div>
           <div class="profile-content">
             <h1>Vaibhav Pratap</h1>
@@ -461,30 +479,30 @@
       <section id="skills" class="profile-card animate__animated animate__fadeInUp">
         <h2 class="section-title">Technical Skills</h2>
         <div class="skills-container">
-            <div class="skill-category">
-                <h3>Languages</h3>
-                <ul class="item-list"><li>C++</li><li>Java</li><li>JavaScript</li><li>Python</li></ul>
-            </div>
-            <div class="skill-category">
-                <h3>Frontend</h3>
-                <ul class="item-list"><li>HTML5 & CSS3</li><li>React.js</li><li>Tailwind CSS</li><li>Bootstrap</li></ul>
-            </div>
-            <div class="skill-category">
-                <h3>Backend</h3>
-                <ul class="item-list"><li>Node.js & Express.js</li><li>Flask</li><li>Spring Boot</li></ul>
-            </div>
-            <div class="skill-category">
-                <h3>Databases</h3>
-                <ul class="item-list"><li>MongoDB</li><li>MySQL</li><li>Oracle</li></ul>
-            </div>
-            <div class="skill-category">
-                <h3>AI/ML</h3>
-                <ul class="item-list"><li>Scikit-learn</li><li>NumPy</li><li>Pandas</li></ul>
-            </div>
-            <div class="skill-category">
-                <h3>Tools & Platforms</h3>
-                <ul class="item-list"><li>Git & GitHub</li><li>Postman</li><li>VS Code</li></ul>
-            </div>
+          <div class="skill-category">
+            <h3>Languages</h3>
+            <ul class="item-list"><li>C++</li><li>Java</li><li>JavaScript</li><li>Python</li></ul>
+          </div>
+          <div class="skill-category">
+            <h3>Frontend</h3>
+            <ul class="item-list"><li>HTML5 & CSS3</li><li>React.js</li><li>Tailwind CSS</li><li>Bootstrap</li></ul>
+          </div>
+          <div class="skill-category">
+            <h3>Backend</h3>
+            <ul class="item-list"><li>Node.js & Express.js</li><li>Flask</li><li>Spring Boot</li></ul>
+          </div>
+          <div class="skill-category">
+            <h3>Databases</h3>
+            <ul class="item-list"><li>MongoDB</li><li>MySQL</li><li>Oracle</li></ul>
+          </div>
+          <div class="skill-category">
+            <h3>AI/ML</h3>
+            <ul class="item-list"><li>Scikit-learn</li><li>NumPy</li><li>Pandas</li></ul>
+          </div>
+          <div class="skill-category">
+            <h3>Tools & Platforms</h3>
+            <ul class="item-list"><li>Git & GitHub</li><li>Postman</li><li>VS Code</li></ul>
+          </div>
         </div>
       </section>
 
@@ -494,10 +512,10 @@
         <h3>AI/ML Intern at Tata Motors</h3>
         <p>Studied various engine types and their testing methodologies. Observed the complete assembly of a Tata Prima truck, focusing on engine components. Developed a predictive model to optimize the engine testing process, significantly reducing time and costs.</p>
         <div class="tech-used">
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">Scikit-learn</span>
-            <span class="tech-tag">Pandas</span>
-            <span class="tech-tag">Predictive Modeling</span>
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Scikit-learn</span>
+          <span class="tech-tag">Pandas</span>
+          <span class="tech-tag">Predictive Modeling</span>
         </div>
       </section>
 
@@ -507,13 +525,13 @@
         <h3>Cultivate Culture – Skill Development & Cultural Exchange Platform</h3>
         <p>Designed and developed an interactive platform promoting skill development and cultural exchange. Integrated mentorship modules, live sessions, and community discussions for a holistic learning experience.</p>
         <div class="tech-used">
-            <span class="tech-tag">React.js</span><span class="tech-tag">Node.js</span><span class="tech-tag">Express.js</span><span class="tech-tag">MongoDB</span>
+          <span class="tech-tag">React.js</span><span class="tech-tag">Node.js</span><span class="tech-tag">Express.js</span><span class="tech-tag">MongoDB</span>
         </div>
         <hr style="border-color: rgba(0,255,247,0.1); margin: 1.5rem 0;">
         <h3>AI-Based Inventory Management System for Perishable Goods</h3>
         <p>Developed an AI-powered system to optimize stock levels and reduce waste. Integrated a Flask API for machine learning predictions, enabling real-time image classification and automatic labeling.</p>
         <div class="tech-used">
-            <span class="tech-tag">React.js</span><span class="tech-tag">Flask</span><span class="tech-tag">Machine Learning</span><span class="tech-tag">REST API</span>
+          <span class="tech-tag">React.js</span><span class="tech-tag">Flask</span><span class="tech-tag">Machine Learning</span><span class="tech-tag">REST API</span>
         </div>
       </section>
     </div>
@@ -540,23 +558,63 @@
         particlesContainer.appendChild(particle);
       }
 
-      // Hamburger menu functionality
+      // Enhanced hamburger menu functionality
       const hamburger = document.getElementById('hamburger');
       const navbar = document.getElementById('navbar');
+      const body = document.body;
+      
       hamburger.addEventListener('click', function() {
         this.classList.toggle('open');
         navbar.classList.toggle('active');
-        document.documentElement.style.overflow = navbar.classList.contains('active') ? 'hidden' : '';
+        
+        // Prevent body scrolling when menu is open
+        if (navbar.classList.contains('active')) {
+          body.classList.add('menu-open');
+        } else {
+          body.classList.remove('menu-open');
+        }
       });
-
-      // Close menu when clicking a link
+      
+      // Close menu when clicking on links
       navbar.addEventListener('click', function(e) {
         if (e.target.tagName.toLowerCase() === 'a' || e.target.closest('a')) {
           hamburger.classList.remove('open');
           navbar.classList.remove('active');
-          document.documentElement.style.overflow = '';
+          body.classList.remove('menu-open');
         }
       });
+
+      // Close menu when clicking outside
+      document.addEventListener('click', function(e) {
+        if (!navbar.contains(e.target) && !hamburger.contains(e.target)) {
+          if (navbar.classList.contains('active')) {
+            hamburger.classList.remove('open');
+            navbar.classList.remove('active');
+            body.classList.remove('menu-open');
+          }
+        }
+      });
+
+      // Prevent touch scrolling that reveals the menu
+      let startX = 0;
+      let startY = 0;
+
+      document.addEventListener('touchstart', function(e) {
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+      }, { passive: true });
+
+      document.addEventListener('touchmove', function(e) {
+        if (!navbar.classList.contains('active')) {
+          const deltaX = e.touches[0].clientX - startX;
+          const deltaY = Math.abs(e.touches[0].clientY - startY);
+          
+          // If swiping horizontally more than vertically, prevent it
+          if (Math.abs(deltaX) > deltaY && deltaX > 50) {
+            e.preventDefault();
+          }
+        }
+      }, { passive: false });
     });
   </script>
 </body>
