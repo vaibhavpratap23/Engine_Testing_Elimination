@@ -131,6 +131,7 @@
       font-size: 1.3rem;
       background: linear-gradient(to right, var(--primary), var(--primary-dark));
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
       letter-spacing: 1px;
     }
@@ -276,6 +277,7 @@
       padding-bottom: 15px;
       background: linear-gradient(to right, var(--primary), var(--primary-dark));
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
@@ -396,11 +398,20 @@
       font-weight: bold;
     }
 
+    /* Table Container for Horizontal Scroll */
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      border-radius: 8px;
+      -webkit-overflow-scrolling: touch;
+    }
+
     /* Technical Specifications Table */
     .tech-table {
       width: 100%;
+      min-width: 600px; /* Ensure minimum width for proper layout */
       border-collapse: collapse;
-      margin: 1.5rem 0;
       background: rgba(0, 0, 0, 0.2);
       border-radius: 8px;
       overflow: hidden;
@@ -411,6 +422,9 @@
       padding: 1rem;
       text-align: left;
       border-bottom: 1px solid rgba(0, 255, 247, 0.1);
+      white-space: nowrap; /* Prevent text wrapping */
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .tech-table th {
@@ -418,6 +432,9 @@
       color: var(--primary);
       font-family: 'Orbitron', sans-serif;
       font-weight: 700;
+      position: sticky;
+      top: 0;
+      z-index: 1;
     }
 
     .tech-table tr:last-child td {
@@ -426,6 +443,13 @@
 
     .tech-table tr:hover {
       background: rgba(0, 255, 247, 0.05);
+    }
+
+    /* Allow text wrapping in specific columns if needed */
+    .tech-table td:nth-child(3),
+    .tech-table th:nth-child(3) {
+      white-space: normal;
+      max-width: 200px;
     }
 
     /* Results Cards */
@@ -535,10 +559,41 @@
         grid-template-columns: 1fr;
       }
 
+      /* Mobile-specific table adjustments */
+      .tech-table {
+        min-width: 500px; /* Reduce minimum width for mobile */
+      }
+
       .tech-table th,
       .tech-table td {
-        padding: 0.8rem;
-        font-size: 0.9rem;
+        padding: 0.6rem 0.4rem;
+        font-size: 0.85rem;
+      }
+
+      .tech-table td:nth-child(3),
+      .tech-table th:nth-child(3) {
+        max-width: 150px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .section {
+        padding: 1rem;
+      }
+
+      .tech-table {
+        min-width: 450px;
+      }
+
+      .tech-table th,
+      .tech-table td {
+        padding: 0.5rem 0.3rem;
+        font-size: 0.8rem;
+      }
+
+      .tech-table td:nth-child(3),
+      .tech-table th:nth-child(3) {
+        max-width: 120px;
       }
     }
   </style>
@@ -561,10 +616,10 @@
     </div>
     
     <nav class="navbar" id="navbar">
-      <a href="/"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-      <a href="/analytics"><i class="fas fa-chart-line"></i> Analytics</a>
-      <a href="/project-report" class="active"><i class="fas fa-file-contract"></i> Project Report</a>
-      <a href="/profile"><i class="fas fa-user-circle"></i> Profile</a>
+      <a href="/app/templates/index.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+      <a href="/app/templates/analytics.html"><i class="fas fa-chart-line"></i> Analytics</a>
+      <a href="/app/templates/project_report.html" class="active"><i class="fas fa-file-contract"></i> Project Report</a>
+      <a href="/app/templates/support.html"><i class="fas fa-user-circle"></i> Profile</a>
     </nav>
   </header>
   
@@ -643,30 +698,32 @@
           <h3>Machine Learning Models</h3>
           <p>Two specialized models were developed and trained:</p>
           
-          <table class="tech-table">
-            <thead>
-              <tr>
-                <th>Model Type</th>
-                <th>Algorithm</th>
-                <th>Purpose</th>
-                <th>Accuracy</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Fuel Efficiency Predictor</td>
-                <td>Random Forest Regression</td>
-                <td>Predict fuel consumption (km/l)</td>
-                <td>94.2%</td>
-              </tr>
-              <tr>
-                <td>Failure Risk Classifier</td>
-                <td>Support Vector Machine</td>
-                <td>Predict engine failure probability</td>
-                <td>91.8%</td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="table-container">
+            <table class="tech-table">
+              <thead>
+                <tr>
+                  <th>Model Type</th>
+                  <th>Algorithm</th>
+                  <th>Purpose</th>
+                  <th>Accuracy</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Fuel Efficiency Predictor</td>
+                  <td>Random Forest Regression</td>
+                  <td>Predict fuel consumption (km/l)</td>
+                  <td>94.2%</td>
+                </tr>
+                <tr>
+                  <td>Failure Risk Classifier</td>
+                  <td>Support Vector Machine</td>
+                  <td>Predict engine failure probability</td>
+                  <td>91.8%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
           <h3>Input Parameters</h3>
           <p>The system monitors eight critical engine parameters:</p>
@@ -735,47 +792,49 @@
           <h2 class="section-title">Technologies Used</h2>
         </div>
         <div class="section-content">
-          <table class="tech-table">
-            <thead>
-              <tr>
-                <th>Category</th>
-                <th>Technology</th>
-                <th>Purpose</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Backend</td>
-                <td>Python Flask</td>
-                <td>Web framework and API development</td>
-              </tr>
-              <tr>
-                <td>Machine Learning</td>
-                <td>Scikit-learn</td>
-                <td>Model training and prediction</td>
-              </tr>
-              <tr>
-                <td>Data Processing</td>
-                <td>NumPy, Pandas</td>
-                <td>Data manipulation and analysis</td>
-              </tr>
-              <tr>
-                <td>Frontend</td>
-                <td>HTML5, CSS3, JavaScript</td>
-                <td>User interface development</td>
-              </tr>
-              <tr>
-                <td>Styling</td>
-                <td>CSS Grid, Flexbox</td>
-                <td>Responsive design implementation</td>
-              </tr>
-              <tr>
-                <td>Icons</td>
-                <td>Font Awesome</td>
-                <td>UI iconography</td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="table-container">
+            <table class="tech-table">
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Technology</th>
+                  <th>Purpose</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Backend</td>
+                  <td>Python Flask</td>
+                  <td>Web framework and API development</td>
+                </tr>
+                <tr>
+                  <td>Machine Learning</td>
+                  <td>Scikit-learn</td>
+                  <td>Model training and prediction</td>
+                </tr>
+                <tr>
+                  <td>Data Processing</td>
+                  <td>NumPy, Pandas</td>
+                  <td>Data manipulation and analysis</td>
+                </tr>
+                <tr>
+                  <td>Frontend</td>
+                  <td>HTML5, CSS3, JavaScript</td>
+                  <td>User interface development</td>
+                </tr>
+                <tr>
+                  <td>Styling</td>
+                  <td>CSS Grid, Flexbox</td>
+                  <td>Responsive design implementation</td>
+                </tr>
+                <tr>
+                  <td>Icons</td>
+                  <td>Font Awesome</td>
+                  <td>UI iconography</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
 
