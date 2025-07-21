@@ -694,11 +694,12 @@
     </div>
     
     <nav class="navbar" id="navbar">
-      <a href="/app/templates/index.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-      <a href="/app/templates/analytics.html"><i class="fas fa-chart-line"></i> Analytics</a>
-      <a href="/app/templates/project_report.html"><i class="fas fa-file-contract"></i> Project Report</a>
-      <a href="/app/templates/support.html"><i class="fas fa-user-circle"></i> Profile</a>
-    </nav>
+  <a href="{{ url_for('index') }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+  <a href="{{ url_for('analytics') }}"><i class="fas fa-chart-line"></i> Analytics</a>
+  <a href="{{ url_for('project_report') }}"><i class="fas fa-file-contract"></i> Project Report</a>
+  <a href="{{ url_for('support') }}"><i class="fas fa-user-circle"></i> Profile</a>
+</nav>
+
   </header>
   
   <main>
@@ -709,7 +710,7 @@
         <h2 class="form-title">
           <i class="fas fa-cogs"></i> Engine Parameters
         </h2>
-        <form id="engineForm">
+        <form id="engineForm" action="/" method="POST">
           <div class="input-grid">
             <div class="input-group full-width">
               <label for="engine_name"><i class="fas fa-tag"></i> Engine Name/Model</label>

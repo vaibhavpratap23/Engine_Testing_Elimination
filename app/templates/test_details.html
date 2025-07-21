@@ -100,6 +100,7 @@
       font-size: 1.4rem;
       background: linear-gradient(to right, var(--primary), var(--primary-dark));
       -webkit-background-clip: text;
+    background-clip: text;
       -webkit-text-fill-color: transparent;
       letter-spacing: 1px;
     }
@@ -321,12 +322,13 @@
       <div class="logo-icon"></div>
       <div class="logo-text">ENGINE AI</div>
     </div>
-    <nav class="navbar">
-      <a href="index.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-      <a href="analytics"><i class="fas fa-chart-line"></i> Analytics</a>
-      <a href="test-details" class="active"><i class="fas fa-clipboard-check"></i> Test Details</a>
-      <a href="support.html"><i class="fas fa-envelope"></i> Profile</a>
-    </nav>
+   <nav class="navbar" id="navbar">
+  <a href="{{ url_for('index') }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+  <a href="{{ url_for('analytics') }}"><i class="fas fa-chart-line"></i> Analytics</a>
+  <a href="{{ url_for('project_report') }}"><i class="fas fa-file-contract"></i> Project Report</a>
+  <a href="{{ url_for('support') }}"><i class="fas fa-user-circle"></i> Profile</a>
+</nav>
+
   </header>
 
   <main>
@@ -463,7 +465,7 @@
     // Mobile touch scrolling enhancements
     document.addEventListener('touchmove', function(e) {
       // Allow native scrolling on overflow elements
-      if (e.target.classList.contains('section-content') {
+      if (e.target.classList.contains('section-content')) {
         e.stopPropagation();
       }
     }, { passive: true });

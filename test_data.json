@@ -1,0 +1,36 @@
+[
+  {
+    "id": 1,
+    "engine_name": "Test Engine A",
+    "test_date": "2025-07-21 07:48",
+    "fuel_efficiency": "15.50",
+    "risk_status": "Low",
+    "details": {
+      "engine_rpm": "2500",
+      "fuel_flow_rate": "10.5",
+      "intake_air_temp": "30",
+      "coolant_temp": "85",
+      "manifold_pressure": "1.2",
+      "ambient_temp": "25",
+      "engine_load": "60",
+      "exhaust_temp": "450"
+    }
+  },
+  {
+    "id": 2,
+    "engine_name": "Test Engine B",
+    "test_date": "2025-07-21 08:48",
+    "fuel_efficiency": "12.30",
+    "risk_status": "High",
+    "details": {
+      "engine_rpm": "3000",
+      "fuel_flow_rate": "12.5",
+      "intake_air_temp": "35",
+      "coolant_temp": "90",
+      "manifold_pressure": "1.5",
+      "ambient_temp": "30",
+      "engine_load": "80",
+      "exhaust_temp": "500"
+    }
+  }
+]

@@ -48,33 +48,32 @@
       touch-action: manipulation;
     }
 
-    /* Prevent body scroll when menu is active */
-    body.menu-open {
-      overflow: hidden !important;
-      position: fixed !important;
-      width: 100% !important;
+    /* Success Message */
+    .success-message {
+      background: rgba(68, 255, 102, 0.2);
+      border: 1px solid var(--safe);
+      color: var(--safe);
+      padding: 1rem;
+      border-radius: 8px;
+      margin: 0 auto 2rem auto;
+      max-width: 1200px;
+      width: calc(100% - 4rem);
+      text-align: center;
+      font-family: 'Orbitron', sans-serif;
+      animation: pulse 2s infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
     }
 
-    /* Particles Background */
-    .particles {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      overflow: hidden;
-      pointer-events: none;
+    @keyframes pulse {
+      0% { opacity: 0.8; }
+      50% { opacity: 1; }
+      100% { opacity: 0.8; }
     }
 
-    .particle {
-      position: absolute;
-      background: rgba(0, 255, 247, 0.6);
-      border-radius: 50%;
-      pointer-events: none;
-      filter: drop-shadow(0 0 5px rgba(0, 255, 247, 0.8));
-    }
-
+    /* Header and Navigation - Keep existing styles */
     header {
       width: 100%;
       padding: 1rem 2rem;
@@ -88,176 +87,7 @@
       position: relative;
     }
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      z-index: 101;
-    }
-
-    .logo-icon {
-      width: 36px;
-      height: 36px;
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      border-radius: 50%;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .logo-icon::before {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: conic-gradient(transparent 0deg, var(--primary) 180deg, transparent 180deg);
-      animation: rotate 4s linear infinite;
-    }
-
-    .logo-icon::after {
-      content: '';
-      position: absolute;
-      width: 28px;
-      height: 28px;
-      background: var(--dark-bg);
-      border-radius: 50%;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-
-    .logo-text {
-      font-family: 'Orbitron', sans-serif;
-      font-weight: 700;
-      font-size: 1.3rem;
-      background: linear-gradient(to right, var(--primary), var(--primary-dark));
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      letter-spacing: 1px;
-    }
-
-    /* FIXED NAVBAR - Properly hidden off-screen */
-    .navbar {
-      position: fixed;
-      top: 0;
-      right: -100%;
-      width: 70%;
-      height: 100vh;
-      transition: right 0.3s ease;
-      background: var(--darker-bg);
-      flex-direction: column;
-      justify-content: center;
-      gap: 2rem;
-      padding: 2rem;
-      border-left: 1px solid rgba(0, 255, 247, 0.2);
-      z-index: 100;
-      display: flex;
-      touch-action: none;
-      will-change: right;
-    }
-
-    .navbar.active {
-      right: 0;
-    }
-
-    .navbar a {
-      color: var(--text-dim);
-      text-decoration: none;
-      font-family: 'Orbitron', sans-serif;
-      font-weight: 500;
-      font-size: 0.9rem;
-      letter-spacing: 0.5px;
-      position: relative;
-      transition: all 0.3s ease;
-      padding: 0.5rem 0;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .navbar a:hover {
-      color: var(--text-light);
-    }
-
-    .navbar a::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--primary);
-      transition: width 0.3s ease;
-    }
-
-    .navbar a:hover::after {
-      width: 100%;
-    }
-
-    .navbar a.active {
-      color: var(--primary);
-    }
-
-    .navbar a.active::after {
-      width: 100%;
-    }
-
-    /* Hamburger menu */
-    .hamburger {
-      display: block;
-      cursor: pointer;
-      width: 30px;
-      height: 25px;
-      position: relative;
-      z-index: 101;
-    }
-
-    .hamburger span {
-      display: block;
-      position: absolute;
-      height: 3px;
-      width: 100%;
-      background: var(--primary);
-      border-radius: 3px;
-      opacity: 1;
-      left: 0;
-      transform: rotate(0deg);
-      transition: .25s ease-in-out;
-    }
-
-    .hamburger span:nth-child(1) {
-      top: 0px;
-    }
-
-    .hamburger span:nth-child(2), .hamburger span:nth-child(3) {
-      top: 10px;
-    }
-
-    .hamburger span:nth-child(4) {
-      top: 20px;
-    }
-
-    .hamburger.open span:nth-child(1) {
-      top: 10px;
-      width: 0%;
-      left: 50%;
-    }
-
-    .hamburger.open span:nth-child(2) {
-      transform: rotate(45deg);
-    }
-
-    .hamburger.open span:nth-child(3) {
-      transform: rotate(-45deg);
-    }
-
-    .hamburger.open span:nth-child(4) {
-      top: 10px;
-      width: 0%;
-      left: 50%;
-    }
-
-    /* Main Content Styles */
+    /* Main Content */
     main {
       flex: 1;
       padding: 2rem;
@@ -281,17 +111,6 @@
       -webkit-text-fill-color: transparent;
     }
 
-    .page-title::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 40%;
-      height: 2px;
-      background: linear-gradient(to right, transparent, var(--primary), transparent);
-    }
-
     .analytics-section {
       width: 100%;
       max-width: 1200px;
@@ -300,12 +119,6 @@
       padding: 2rem;
       border: 1px solid rgba(0, 255, 247, 0.3);
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .analytics-section:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
     }
 
     .section-header {
@@ -321,12 +134,24 @@
       color: var(--primary);
     }
 
+    /* Data Table Styles */
+    .table-container {
+      max-height: 70vh;
+      overflow-y: auto;
+      margin-top: 1rem;
+      border-radius: 8px;
+      border: 1px solid rgba(0, 255, 247, 0.3);
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
     .results-table {
       width: 100%;
       border-collapse: collapse;
       background: rgba(0, 0, 0, 0.2);
-      border-radius: 8px;
-      overflow: hidden;
     }
 
     .results-table th {
@@ -337,7 +162,8 @@
       padding: 1rem;
       text-align: left;
       font-size: 0.9rem;
-      letter-spacing: 0.5px;
+      position: sticky;
+      top: 0;
     }
 
     .results-table td {
@@ -393,11 +219,13 @@
       text-decoration: underline;
     }
 
+    /* No Data State */
     .no-data {
       text-align: center;
       padding: 3rem;
       color: var(--text-dim);
-      font-style: italic;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
     }
 
     .no-data i {
@@ -407,112 +235,36 @@
       opacity: 0.5;
     }
 
-    /* Table scrolling on mobile */
-    .table-wrapper {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      border-radius: 8px;
-    }
-
-    .table-wrapper::-webkit-scrollbar {
-      height: 8px;
-    }
-
-    .table-wrapper::-webkit-scrollbar-thumb {
-      background: var(--primary);
-      border-radius: 4px;
-    }
-
-    .table-wrapper::-webkit-scrollbar-track {
-      background: rgba(0, 0, 0, 0.2);
-      border-radius: 4px;
-    }
-
-    /* Animations */
-    @keyframes rotate {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0) translateX(0); opacity: 0; }
-      10% { opacity: 0.8; }
-      90% { opacity: 0.8; }
-      100% { transform: translateY(-100vh) translateX(20px); opacity: 0; }
-    }
-
-    @keyframes floatVariation {
-      0% { transform: translateY(0) translateX(0); opacity: 0; }
-      10% { opacity: 0.8; }
-      90% { opacity: 0.8; }
-      100% { transform: translateY(-120vh) translateX(40px); opacity: 0; }
-    }
-
-    /* Desktop layout - override mobile styles with !important */
-    @media (min-width: 769px) {
-      .navbar {
-        position: static !important;
-        right: auto !important;
-        transform: none !important;
-        width: auto !important;
-        height: auto !important;
-        flex-direction: row !important;
-        gap: 2rem !important;
-        background: transparent !important;
-        border: none !important;
-        padding: 0 !important;
-        justify-content: flex-end !important;
-        touch-action: auto !important;
-      }
-
-      .hamburger {
-        display: none !important;
-      }
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 1200px) {
-      .analytics-section {
-        margin: 0 1rem;
-      }
-    }
-
+    /* Mobile Responsiveness */
     @media (max-width: 768px) {
-      header {
-        padding: 1rem;
-      }
-
       .page-title {
         font-size: 1.8rem;
-        margin: 0.8rem 0;
       }
-
+      
       .analytics-section {
         padding: 1.5rem;
-        margin: 0;
       }
-
-      .results-table th,
+      
+      .results-table th, 
       .results-table td {
         padding: 0.8rem;
         font-size: 0.85rem;
       }
-
-      .section-title {
-        font-size: 1.1rem;
+      
+      .table-wrapper {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
       }
-    }
-
-    @media (max-width: 480px) {
-      .results-table th,
-      .results-table td {
-        padding: 0.6rem;
-        font-size: 0.8rem;
+      
+      .results-table {
+        min-width: 1200px;
       }
-
-      .risk-badge {
-        font-size: 0.7rem;
-        padding: 0.3rem 0.6rem;
+      
+      .success-message {
+        width: calc(100% - 2rem);
+        margin: 0 1rem 1.5rem 1rem;
+        font-size: 0.9rem;
       }
     }
   </style>
@@ -535,68 +287,89 @@
     </div>
     
     <nav class="navbar" id="navbar">
-      <a href="/app/templates/index.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-      <a href="/app/templates/analytics.html" class="active"><i class="fas fa-chart-line"></i> Analytics</a>
-      <a href="/app/templates/project_report.html"><i class="fas fa-file-contract"></i> Project Report</a>
-      <a href="/app/templates/support.html"><i class="fas fa-user-circle"></i> Profile</a>
+      <a href="{{ url_for('index') }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+      <a href="{{ url_for('analytics') }}"><i class="fas fa-chart-line"></i> Analytics</a>
+      <a href="{{ url_for('project_report') }}"><i class="fas fa-file-contract"></i> Project Report</a>
+      <a href="{{ url_for('support') }}"><i class="fas fa-user-circle"></i> Profile</a>
     </nav>
   </header>
   
   <main>
+    {% if success %}
+    <div class="success-message animate__animated animate__fadeIn">
+      <i class="fas fa-check-circle"></i> Test data saved successfully!
+    </div>
+    {% endif %}
+
     <h1 class="page-title animate__animated animate__fadeIn">Engine Performance Analytics</h1>
     
     <section class="analytics-section animate__animated animate__fadeInUp">
       <div class="section-header">
         <i class="fas fa-history"></i>
-        <h2 class="section-title">Test History & Results</h2>
+        <h2 class="section-title">Complete Test History</h2>
       </div>
       
-      <div class="table-wrapper">
-        {% if test_history %}
-        <table class="results-table">
-          <thead>
-            <tr>
-              <th><i class="fas fa-tag"></i> Engine Name</th>
-              <th><i class="fas fa-calendar-alt"></i> Test Date</th>
-              <th><i class="fas fa-gas-pump"></i> Fuel Efficiency</th>
-              <th><i class="fas fa-exclamation-triangle"></i> Risk Status</th>
-              <th><i class="fas fa-eye"></i> Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for test in test_history %}
-            <tr>
-              <td>{{ test.engine_name }}</td>
-              <td>{{ test.test_date }}</td>
-              <td>{{ test.fuel_efficiency }} km/l</td>
-              <td>
-                <span class="risk-badge {% if test.risk_status == 'High' %}risk-high{% else %}risk-low{% endif %}">
-                  {% if test.risk_status == 'High' %}
-                    <i class="fas fa-exclamation-triangle"></i>
-                    Critical
-                  {% else %}
-                    <i class="fas fa-check-circle"></i>
-                    Optimal
-                  {% endif %}
-                </span>
-              </td>
-              <td>
-                <a href="/test-details/{{ test.id }}" class="details-link">
-                  <i class="fas fa-info-circle"></i>
-                  View Details
-                </a>
-              </td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-        {% else %}
-        <div class="no-data">
-          <i class="fas fa-database"></i>
-          <h3>No Test Data Available</h3>
-          <p>Perform engine tests from the Dashboard to see historical data here.</p>
+      <div class="table-container">
+        <div class="table-wrapper">
+          {% if test_history %}
+          <table class="results-table">
+            <thead>
+              <tr>
+                <th><i class="fas fa-tag"></i> Engine</th>
+                <th><i class="fas fa-calendar-alt"></i> Date</th>
+                <th><i class="fas fa-tachometer-alt"></i> RPM</th>
+                <th><i class="fas fa-gas-pump"></i> Fuel (L/h)</th>
+                <th><i class="fas fa-wind"></i> Intake (°C)</th>
+                <th><i class="fas fa-temperature-high"></i> Coolant (°C)</th>
+                <th><i class="fas fa-compress-alt"></i> Pressure (kPa)</th>
+                <th><i class="fas fa-thermometer-half"></i> Ambient (°C)</th>
+                <th><i class="fas fa-weight-hanging"></i> Load (%)</th>
+                <th><i class="fas fa-fire"></i> Exhaust (°C)</th>
+                <th><i class="fas fa-bolt"></i> Efficiency</th>
+                <th><i class="fas fa-exclamation-triangle"></i> Status</th>
+                <th><i class="fas fa-eye"></i> Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for test in test_history %}
+              <tr>
+                <td>{{ test.engine_name }}</td>
+                <td>{{ test.test_date }}</td>
+                <td>{{ test.details.engine_rpm }}</td>
+                <td>{{ test.details.fuel_flow_rate }}</td>
+                <td>{{ test.details.intake_air_temp }}</td>
+                <td>{{ test.details.coolant_temp }}</td>
+                <td>{{ test.details.manifold_pressure }}</td>
+                <td>{{ test.details.ambient_temp }}</td>
+                <td>{{ test.details.engine_load }}</td>
+                <td>{{ test.details.exhaust_temp }}</td>
+                <td>{{ test.fuel_efficiency }}</td>
+                <td>
+                  <span class="risk-badge {% if test.risk_status == 'High' %}risk-high{% else %}risk-low{% endif %}">
+                    {% if test.risk_status == 'High' %}
+                      <i class="fas fa-exclamation-triangle"></i> Critical
+                    {% else %}
+                      <i class="fas fa-check-circle"></i> Optimal
+                    {% endif %}
+                  </span>
+                </td>
+                <td>
+                  <a href="/test-details/{{ test.id }}" class="details-link">
+                    <i class="fas fa-chart-bar"></i> Details
+                  </a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% else %}
+          <div class="no-data">
+            <i class="fas fa-database"></i>
+            <h3>No Test Data Available</h3>
+            <p>Perform engine tests from the Dashboard to see historical data here.</p>
+          </div>
+          {% endif %}
         </div>
-        {% endif %}
       </div>
     </section>
   </main>
@@ -611,30 +384,22 @@
         const particle = document.createElement('div');
         particle.classList.add('particle');
         
-        // Random size between 1px and 4px
         const size = Math.random() * 3 + 1;
         particle.style.width = `${size}px`;
         particle.style.height = `${size}px`;
-        
-        // Random starting position
         particle.style.left = `${Math.random() * 100}%`;
         particle.style.top = `${Math.random() * 120}%`;
         
-        // Random animation duration and delay
         const duration = Math.random() * 20 + 10;
         const delay = Math.random() * 5;
-        
-        // Choose between two animation types for variety
         const animationType = Math.random() > 0.5 ? 'float' : 'floatVariation';
         particle.style.animation = `${animationType} ${duration}s linear ${delay}s infinite`;
-        
-        // Random opacity for depth effect
         particle.style.opacity = Math.random() * 0.6 + 0.4;
         
         particlesContainer.appendChild(particle);
       }
 
-      // Enhanced hamburger menu functionality
+      // Mobile menu functionality
       const hamburger = document.getElementById('hamburger');
       const navbar = document.getElementById('navbar');
       const body = document.body;
@@ -642,16 +407,9 @@
       hamburger.addEventListener('click', function() {
         this.classList.toggle('open');
         navbar.classList.toggle('active');
-        
-        // Prevent body scrolling when menu is open
-        if (navbar.classList.contains('active')) {
-          body.classList.add('menu-open');
-        } else {
-          body.classList.remove('menu-open');
-        }
+        body.classList.toggle('menu-open');
       });
       
-      // Close menu when clicking on links
       navbar.addEventListener('click', function(e) {
         if (e.target.tagName.toLowerCase() === 'a' || e.target.closest('a')) {
           hamburger.classList.remove('open');
@@ -660,7 +418,6 @@
         }
       });
 
-      // Close menu when clicking outside
       document.addEventListener('click', function(e) {
         if (!navbar.contains(e.target) && !hamburger.contains(e.target)) {
           if (navbar.classList.contains('active')) {
@@ -669,41 +426,6 @@
             body.classList.remove('menu-open');
           }
         }
-      });
-
-      // Prevent touch scrolling that reveals the menu
-      let startX = 0;
-      let startY = 0;
-
-      document.addEventListener('touchstart', function(e) {
-        startX = e.touches[0].clientX;
-        startY = e.touches[0].clientY;
-      }, { passive: true });
-
-      document.addEventListener('touchmove', function(e) {
-        if (!navbar.classList.contains('active')) {
-          const deltaX = e.touches[0].clientX - startX;
-          const deltaY = Math.abs(e.touches[0].clientY - startY);
-          
-          // If swiping horizontally more than vertically, prevent it
-          if (Math.abs(deltaX) > deltaY && deltaX > 50) {
-            e.preventDefault();
-          }
-        }
-      }, { passive: false });
-
-      // Add smooth scrolling for any internal links
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-          e.preventDefault();
-          const target = document.querySelector(this.getAttribute('href'));
-          if (target) {
-            target.scrollIntoView({
-              behavior: 'smooth',
-              block: 'start'
-            });
-          }
-        });
       });
     });
   </script>

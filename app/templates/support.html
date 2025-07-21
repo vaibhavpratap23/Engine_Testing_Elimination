@@ -442,11 +442,12 @@
     </div>
     
     <nav class="navbar" id="navbar">
-      <a href="/app/templates/index.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-      <a href="/app/templates/analytics.html"><i class="fas fa-chart-line"></i> Analytics</a>
-      <a href="/app/templates/project_report.html"><i class="fas fa-file-contract"></i> Project Report</a>
-      <a href="/app/templates/support.html" class="active"><i class="fas fa-user-circle"></i> Profile</a>
-    </nav>
+  <a href="{{ url_for('index') }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+  <a href="{{ url_for('analytics') }}"><i class="fas fa-chart-line"></i> Analytics</a>
+  <a href="{{ url_for('project_report') }}"><i class="fas fa-file-contract"></i> Project Report</a>
+  <a href="{{ url_for('support') }}"><i class="fas fa-user-circle"></i> Profile</a>
+</nav>
+
   </header>
   
   <main>
@@ -455,7 +456,7 @@
       <section id="about" class="profile-card animate__animated animate__fadeIn">
         <div class="about-container">
           <div class="profile-image-container">
-            <img src="/app/static/images/profile.JPG" alt="Vaibhav Pratap" class="profile-image">
+            <img src="{{ url_for('static', filename='images/profile.JPG') }}" alt="Vaibhav Pratap" class="profile-image">
           </div>
           <div class="profile-content">
             <h1>Vaibhav Pratap</h1>
